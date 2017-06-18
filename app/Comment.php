@@ -5,9 +5,8 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Post extends Model
+class Comment extends Model
 {
-
     use SoftDeletes;
 
     
@@ -25,14 +24,13 @@ class Post extends Model
      */
     protected $dates = ['deleted_at'];
 
-
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
-    public function comments()
+    public function post()
     {
-        return $this->hasMany('App\Comment');
+        return $this->belongsTo('App\Post');
     }
 }

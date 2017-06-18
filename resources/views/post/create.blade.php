@@ -11,7 +11,7 @@
 					<form method="post">
 						{{ csrf_field() }}
 						<div>Title</div>
-						<input type="text" name="title" placeholder="Title" class="form-control">
+						<input type="text" name="title" placeholder="Title" required class="form-control">
 						@if ($errors->has('title'))
 							<span class="help-block">
 								<strong>{{ $errors->first('title') }}</strong>

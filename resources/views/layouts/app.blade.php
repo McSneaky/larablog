@@ -60,7 +60,6 @@
                                                      document.getElementById('logout-form').submit();">
                                             Logout
                                         </a>
-
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                                             {{ csrf_field() }}
                                         </form>
@@ -82,6 +81,11 @@
     <style>
         #posts .top-buffer {
             margin-top: 20px;
+        }
+        pre{
+            white-space: pre-wrap;
+            background-color: transparent; 
+            border: none; 
         }
     </style>   
 </body>

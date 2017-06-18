@@ -29,7 +29,16 @@ class User extends Authenticatable
 
 
     // Define relations
-    public function posts(){
+    public function posts()
+    {
         return $this->hasMany('App\Post');
+    }
+
+    /**
+     * Get all of the posts for the country.
+     */
+    public function comments()
+    {
+        return $this->hasManyThrough('App\Comment', 'App\Post');
     }
 }

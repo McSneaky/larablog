@@ -30,7 +30,7 @@ class PostsController extends Controller
 	{
 		// Reverse order
 		// Doing simple paginate instead of reagular to use less server resources
-		$posts = Post::orderBy('updated_at', 'desc')->simplePaginate(20);
+		$posts = Post::orderBy('updated_at', 'desc')->simplePaginate(21);
 
 		return view('post/index', compact('posts'));
 	}
@@ -76,6 +76,7 @@ class PostsController extends Controller
 	public function show($id)
 	{
 		$post = Post::find($id);
+		$post->comments = $post->comments()->with('User')->get();
 
 		return view('post/show', compact('post'));
 	}
