@@ -21,8 +21,14 @@ class CommentsController extends Controller
 		]);
 
     	$post = Post::find($id);
+
+    	// Check if post exists or user wants to comment some random thing
+    	if (!$post) { return back(); }
+
+    	
     	$post->comments()->create([
-    		'user_id' => Auth::id() ?? null,
+    		// 'user_id' => Auth::id() ?? null,
+    		'user_id' => Auth::check() ? Auth::id() : null,
     		'body' => $request->comment,
     	]);
 
