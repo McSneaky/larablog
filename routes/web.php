@@ -18,3 +18,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Posts CRED routes
+Route::get('/posts', 'PostsController@index');
+Route::get('/post/create', 'PostsController@create');
+Route::get('/post/edit/{id}', 'PostsController@edit');
+Route::post('/post/edit/{id}', 'PostsController@update');
+Route::post('/post/create', 'PostsController@store');
+Route::get('/post/delete/{id}', 'PostsController@destroy');
+Route::get('/post/{id}', 'PostsController@show');

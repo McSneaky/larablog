@@ -68,8 +68,10 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
+                    <a href="{{ url('/posts') }}">View all posts</a>
                     @if (Auth::check())
-                        <a href="{{ url('/home') }}">Home</a>
+                        <a href="{{ url('/post/create') }}">Create new post</a>
+                        <a href="{{ url('/home') }}">My dashboard</a>
                     @else
                         <a href="{{ url('/login') }}">Login</a>
                         <a href="{{ url('/register') }}">Register</a>
@@ -83,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="posts">Start reading</a>
+                    <a href="{{ url('/posts') }}">Start reading posts</a>
                 </div>
             </div>
         </div>
