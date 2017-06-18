@@ -76,7 +76,7 @@ class PostsController extends Controller
 	public function show($id)
 	{
 		$post = Post::find($id);
-		$post->comments = $post->comments()->with('User')->get();
+		$post->comments = $post->comments()->with('User')->get()->reverse();
 
 		return view('post/show', compact('post'));
 	}
