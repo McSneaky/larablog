@@ -16,3 +16,4 @@ Link to requirements: ## TO BE ADDED ##<br />
 *This is italic* <br />
 **This is bold** <br />
 ***This is italic and bold*** <br />
+php artisan storage:link

@@ -20,12 +20,21 @@
                         <br />
                         <div>Body</div>
                         <textarea name="body" placeholder="Post content" class="form-control">{{ $post->body }}</textarea>
+                        @foreach($post->images as $image)
+                            <div class="col-sm-4">
+                                <img class="col-xs-12" src="{{ Storage::url($image->path) }}">
+                                <a href="{{ url('image/delete/' . $image->id) }}" class="rem-image btn btn-danger">x</a>
+                            </div>
+                        @endforeach
                         @if ($errors->has('body'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('body') }}</strong>
                             </span>
                         @endif
-                        <input type="submit" value="Post" class="btn btn-primary">
+                        <div class="col-sm-12">
+                            <input type="submit" value="Post" class="btn btn-primary">
+                            <a href="{{ url('/post/delete/' . $post->id) }}" class="btn btn-danger pull-right">Delete post</a>
+                        </div>
                     </form>
                 </div>
             </div>

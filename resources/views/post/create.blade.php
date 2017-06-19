@@ -6,9 +6,13 @@
 		<div class="col-md-8 col-md-offset-2">
 			<div class="panel panel-default">
 				<div class="panel-heading">Create new post</div>
-
+				@if ($errors->has('images.*'))
+					<span class="help-block">
+						<strong>{{ $errors->first('images.*') }}</strong>
+					</span>
+				@endif
 				<div class="panel-body">
-					<form method="post">
+					<form method="post" enctype="multipart/form-data">
 						{{ csrf_field() }}
 						<div>Title</div>
 						<input type="text" name="title" placeholder="Title" required class="form-control">
@@ -25,6 +29,7 @@
 								<strong>{{ $errors->first('body') }}</strong>
 							</span>
 						@endif
+						<input type="file" name="images[]" multiple>
 						<input type="submit" value="Post" class="btn btn-primary">
 					</form>
 				</div>

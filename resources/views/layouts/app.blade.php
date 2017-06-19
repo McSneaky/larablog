@@ -77,16 +77,5 @@
 
     <!-- Scripts -->
     <script src="{{ mix('js/app.js') }}"></script>
-
-    <style>
-        #posts .top-buffer {
-            margin-top: 20px;
-        }
-        pre{
-            white-space: pre-wrap;
-            background-color: transparent; 
-            border: none; 
-        }
-    </style>   
 </body>
 </html>

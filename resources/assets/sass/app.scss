@@ -7,3 +7,19 @@
 
 // Bootstrap
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+
+
+// Some small part of aditional CSS
+#posts .top-buffer {
+    margin-top: 20px;
+}
+pre{
+    white-space: pre-wrap;
+    background-color: transparent; 
+    border: none; 
+}
+.rem-image{
+    position: absolute;
+    top: 0;
+    left: 0;
+}

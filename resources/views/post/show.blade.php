@@ -8,12 +8,18 @@
                 <div class="panel-heading">
                     {{ $post->title }}
                 </div>
-
                 <div class="panel-body">
                     <pre>{{ $post->body }}</pre>
+                    @foreach($post->images as $image)
+                        <div class="col-sm-4">
+                            <img class="col-xs-12" src="{{ Storage::url($image->path) }}">
+                        </div>
+                    @endforeach
                     @if(Auth::id() == $post->user_id)
-                        <a href="{{ url('/post/edit/' . $post->id) }}" class="btn btn-warning">Edit</a>
-                        <a href="{{ url('/post/delete/' . $post->id) }}" class="btn btn-danger">Delete</a>
+                        <div class="col-md-12">
+                            <a href="{{ url('/post/edit/' . $post->id) }}" class="btn btn-warning">Edit</a>
+                            <a href="{{ url('/post/delete/' . $post->id) }}" class="btn btn-danger">Delete</a>
+                        </div>
                     @endif
                 </div>
             </div>

@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Redirect;
 
 use Auth;
+use DB;
 use App\Post;
 use App\User;
+use App\Image;
+use Storage;
 
 class PostsController extends Controller
 {
@@ -57,12 +60,23 @@ class PostsController extends Controller
 		$this->validate($request, [
 			'title' => 'required|max:255',
 			'body' => 'max:4000',
+			'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
 		]);
 
 		$post = Auth::user()->posts()->create([
 			'title' => $request->title,
 			'body' => $request->body,
 		]);
+
+		if ($request->file('images')){
+			foreach ($request->file('images') as $image)
+			{
+				$path = $image->store('public');
+				$post->images()->create([
+					'path' => $path,
+				]);
+			}
+		}
 
 		return redirect('post/' . $post->id);
 	}
@@ -130,5 +144,21 @@ class PostsController extends Controller
 		Auth::user()->posts()->find($id)->delete();
 
 		return redirect('posts');
+	}
+
+	public function removeImage($id)
+	{
+		$image = Image::find($id);
+
+		if (!$image) { return back(); }
+
+		// Check if picture owner is user
+		$post = $image->post;
+		if ($post->user_id == Auth::id()) {
+			Storage::delete($image->path);
+			$image->delete();
+		}
+
+		return back();
 	}
 }

@@ -30,3 +30,6 @@ Route::get('/post/{id}', 'PostsController@show');
 
 // Comment routes
 Route::post('/comment/{id}', 'CommentsController@store');
+
+// Image routes
+Route::get('/image/delete/{id}', 'PostsController@removeImage');

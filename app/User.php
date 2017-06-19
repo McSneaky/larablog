@@ -41,4 +41,12 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough('App\Comment', 'App\Post');
     }
+
+    /**
+     * Get all of the posts for the country.
+     */
+    public function images()
+    {
+        return $this->hasManyThrough('App\Image', 'App\Post');
+    }
 }
