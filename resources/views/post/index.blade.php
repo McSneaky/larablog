@@ -5,7 +5,7 @@
 
 <div class="container">
     <div class="text-center">
-        <h2>All posts</h2>
+        <h2>@lang('app.all_posts')</h2>
     </div>
     <div id="posts" class="list-group">
         @foreach ($posts as $post)
@@ -14,7 +14,6 @@
             @endif
                 <div class="col-sm-4">
                     <div class="thumbnail">
-                        {{-- <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" /> --}}
                         <div class="caption">
                             <h4>{{ $post->title }}</h4>
                                 <p>
@@ -24,7 +23,7 @@
                                 </p>
                                 <div class="row top-buffer">
                                     <div class="col-md-6">
-                                        <a class="btn btn-primary" href="{{ url('/post/' . $post->id) }}">Continue reading</a>
+                                        <a class="btn btn-primary" href="{{ route('post_show', $post->id) }}">@lang('app.open_post')</a>
                                     </div>
                                 </div>
                             </div>

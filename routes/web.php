@@ -11,25 +11,39 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+$locale = Request::segment(1);
+
+if (in_array($locale, Config::get('app.available_locales'))) {
+    \App::setLocale($locale);
+} else {
+    $locale = null;
+}
+
+
 
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
+Route::group(array('prefix' => $locale), function()
+{
+	Route::get('/', function () {
+	    return view('welcome');
+	})->name('root');
 
-// Posts routes
-Route::get('/posts', 'PostsController@index');
-Route::get('/post/create', 'PostsController@create');
-Route::get('/post/edit/{id}', 'PostsController@edit');
-Route::post('/post/edit/{id}', 'PostsController@update');
-Route::post('/post/create', 'PostsController@store');
-Route::get('/post/delete/{id}', 'PostsController@destroy');
-Route::get('/post/{id}', 'PostsController@show');
+	Route::get('/home', 'HomeController@index')->name('home');
 
-// Comment routes
-Route::post('/comment/{id}', 'CommentsController@store');
+	// Posts routes
+	Route::get('posts', 'PostsController@index')->name('posts');
+	Route::get('/post/create', 'PostsController@create')->name('post_create');
+	Route::get('/post/edit/{id}', 'PostsController@edit')->name('post_edit');
+	Route::get('/post/{id}', 'PostsController@show')->name('post_show');
+	
+	Route::post('/post/edit/{id}', 'PostsController@update');
+	Route::post('/post/create', 'PostsController@store');
+	Route::get('/post/delete/{id}', 'PostsController@destroy');
 
-// Image routes
-Route::get('/image/delete/{id}', 'PostsController@removeImage');
+	// Comment routes
+	Route::post('/comment/{id}', 'CommentsController@store');
+
+	// Image routes
+	Route::get('/image/delete/{id}', 'PostsController@removeImage');
+});

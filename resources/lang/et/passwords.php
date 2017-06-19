@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Password Reset Language Lines - en
+    | Password Reset Language Lines - et
     |--------------------------------------------------------------------------
     |
     | The following language lines are the default lines which match reasons
@@ -13,10 +13,10 @@ return [
     |
     */
 
-    'password' => 'Passwords must be at least six characters and match the confirmation.',
-    'reset' => 'Your password has been reset!',
-    'sent' => 'We have e-mailed your password reset link!',
-    'token' => 'This password reset token is invalid.',
-    'user' => "We can't find a user with that e-mail address.",
+    'password' => 'Parool peab olema vähemalt 6 tähemärki pikk ja kattuma parooli kordusega.',
+    'reset' => 'Parool muudeti.',
+    'sent' => 'Saatsime emailile parooli muutmise lingi.',
+    'token' => 'Parooli muutmise link on aegunud.',
+    'user' => "Sellise e-mailiga kasutajat ei eksisteeri.",
 
 ];

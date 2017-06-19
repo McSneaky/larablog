@@ -92,6 +92,8 @@ return [
 
     'fallback_locale' => 'en',
 
+    'available_locales' => ['et'],
+
     /*
     |--------------------------------------------------------------------------
     | Encryption Key

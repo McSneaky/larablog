@@ -68,13 +68,13 @@
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
-                    <a href="{{ url('/posts') }}">View all posts</a>
+                    <a href="{{ route('posts') }}">@lang('app.start_reading')</a>
                     @if (Auth::check())
-                        <a href="{{ url('/post/create') }}">Create new post</a>
-                        <a href="{{ url('/home') }}">My dashboard</a>
+                        <a href="{{ route('post_create') }}">@lang('app.new_post')</a>
+                        <a href="{{ route('home') }}">@lang('app.dashboard')</a>
                     @else
-                        <a href="{{ url('/login') }}">Login</a>
-                        <a href="{{ url('/register') }}">Register</a>
+                        <a href="{{ route('login') }}">@lang('auth.login')</a>
+                        <a href="{{ route('register') }}">@lang('auth.register')</a>
                     @endif
                 </div>
             @endif
@@ -85,7 +85,7 @@
                 </div>
 
                 <div class="links">
-                    <a href="{{ url('/posts') }}">Start reading posts</a>
+                    <a href="{{ route('posts') }}">@lang('app.start_reading')</a>
                 </div>
             </div>
         </div>

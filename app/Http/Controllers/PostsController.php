@@ -90,6 +90,10 @@ class PostsController extends Controller
 	public function show($id)
 	{
 		$post = Post::find($id);
+		if (!$post) { 
+			return redirect('/posts')->with('message', 'no_post');
+		}
+
 		$post->comments = $post->comments()->with('User')->get()->reverse();
 
 		return view('post/show', compact('post'));

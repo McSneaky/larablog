@@ -4,7 +4,7 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-    | Authentication Language Lines
+    | Authentication Language Lines - en
     |--------------------------------------------------------------------------
     |
     | The following language lines are used during authentication for various
@@ -16,4 +16,16 @@ return [
     'failed' => 'These credentials do not match our records.',
     'throttle' => 'Too many login attempts. Please try again in :seconds seconds.',
 
+
+    'login' => "Login",
+    'logout' => "Logout",
+    'register' => "Register",
+    'name' => "Name",
+    'email' => "E-mail",
+    'password' => "Password",
+    'password_conf' => "Password confirmation",
+    'remember' => "Remember me",
+    'forgot' => "Forgot password",
+
+    'password_reset' => "Reset password",
 ];
