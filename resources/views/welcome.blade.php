@@ -9,7 +9,7 @@
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-
+        
         <!-- Styles -->
         <style>
             html, body {
@@ -86,6 +86,8 @@
 
                 <div class="links">
                     <a href="{{ route('posts') }}">@lang('app.start_reading')</a>
+                    <a href="{{ url('/') }}">ENG</a>
+                    <a href="{{ url('/et') }}">EST</a>
                 </div>
             </div>
         </div>

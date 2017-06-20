@@ -1,5 +1,16 @@
 <?php
 
+/*
+|--------------------------------------------------------------------------
+| PostsFactory
+|--------------------------------------------------------------------------
+|
+| Generate posts with some random data
+| 	title 	= 	random name
+|	body 	= 	random text
+|	user_id	=	attach post to random user
+|
+*/
 
 /** @var \Illuminate\Database\Eloquent\Factory $factory */
 $users = App\User::get()->pluck('id')->toArray();

@@ -17,35 +17,41 @@ use Storage;
 
 class PostsController extends Controller
 {
-
+	/**
+	 * Create a new controller instance.
+	 *
+	 * @return void
+	 */
 	public function __construct()
 	{
-        $this->middleware('auth')->except(['index', 'show']);
+		// Protect whole controller with authentication
+		// 	expect "view all posts" and "show single post" parts
+		$this->middleware('auth')->except(['index', 'show']);
 	}
 
 
 	/**
-	 * Display a listing of the resource.
+	 * Display all posts.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function index()
 	{
-		// Reverse order
-		// Doing simple paginate instead of reagular to use less server resources
+		// Get all posts and show latest updated ones first
+		// 	Doing simple paginate instead of reagular to use less server resources
+		// 	since there might be millions of posts
 		$posts = Post::orderBy('updated_at', 'desc')->simplePaginate(21);
 
 		return view('post/index', compact('posts'));
 	}
 
 	/**
-	 * Show the form for creating a new resource.
+	 * Show the form for creating a new post.
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
 	public function create()
 	{
-
 		return view('post/create');
 	}
 
@@ -57,17 +63,21 @@ class PostsController extends Controller
 	 */
 	public function store(Request $request)
 	{
+		// Validate new post title, body and uploaded images
 		$this->validate($request, [
 			'title' => 'required|max:255',
 			'body' => 'max:4000',
 			'images.*' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048'
 		]);
 
+		// Create new post and attach it to currently logged in user
 		$post = Auth::user()->posts()->create([
 			'title' => $request->title,
 			'body' => $request->body,
 		]);
 
+		// If post has images, then store them all into /storage/app/public/img_name
+		// 	and save path to database
 		if ($request->file('images')){
 			foreach ($request->file('images') as $image)
 			{
@@ -82,18 +92,21 @@ class PostsController extends Controller
 	}
 
 	/**
-	 * Display the specified resource.
+	 * Display the specified post.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
 	public function show($id)
 	{
+		// Check if post exists, if it doesn't then return to all posts page
+		// 	with error message
 		$post = Post::find($id);
 		if (!$post) { 
 			return redirect()->route('posts')->with('message', 'no_post');
 		}
 
+		// Get all post comments with their owner and reverse order to show new ones first
 		$post->comments = $post->comments()->with('User')->get()->reverse();
 
 		return view('post/show', compact('post'));
@@ -101,7 +114,7 @@ class PostsController extends Controller
 
 
 	/**
-	 * Show the form for editing the specified resource.
+	 * Show the form for editing the specified post.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
@@ -114,7 +127,7 @@ class PostsController extends Controller
 	}
 
 	/**
-	 * Update the specified resource in storage.
+	 * Update the specified post in storage.
 	 *
 	 * @param  \Illuminate\Http\Request  $request
 	 * @param  int  $id
@@ -122,11 +135,13 @@ class PostsController extends Controller
 	 */
 	public function update(Request $request, $id)
 	{
+		// Validate post title and body
 		$this->validate($request, [
 			'title' => 'required|max:255',
 			'body' => 'max:4000',
 		]);
 
+		// After validation is passed then update given post
 		$post = Post::find($id);
 		if ($post) {
 			$post->title = $request->title;
@@ -138,25 +153,36 @@ class PostsController extends Controller
 	}
 
 	/**
-	 * Remove the specified resource from storage.
+	 * Remove the specified post from storage.
 	 *
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
 	public function destroy($id)
 	{
-		Post::find($id)->delete();
+		$post = Post::with('user')->find($id);
+
+		// Allow only owner and admin / modem delete it
+		if (Auth::user()->canModerate() || $post->user_id == Auth::id()) {
+			$post->delete();
+		}
 
 		return redirect()->route('posts');
 	}
 
+	/**
+	 * Remove the specified image from storage.
+	 *
+	 * @param  int  $id
+	 * @return \Illuminate\Http\Response
+	 */
 	public function removeImage($id)
 	{
+		// If image is not found, then redirect back
 		$image = Image::find($id);
-
 		if (!$image) { return back(); }
 
-		// Check if picture owner is user
+		// Allow only owner and admin / modem delete it
 		$post = $image->post;
 		if ($post->user_id == Auth::id() || Auth::user()->canModerate()) {
 			Storage::delete($image->path);

@@ -20,10 +20,11 @@ if (in_array($locale, Config::get('app.available_locales'))) {
 }
 
 
-Auth::routes();
 
 Route::group(array('prefix' => $locale), function()
 {
+	Auth::routes();
+	
 	Route::get('/', function () {
 	    return view('welcome');
 	})->name('root');

@@ -2,6 +2,8 @@
 
 use Illuminate\Database\Seeder;
 use App\User;
+use App\Role;
+
 class UsersTableSeeder extends Seeder
 {
     /**
@@ -11,10 +13,29 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
-        // Create 10 users
+        // Create $users nr of random users
         $users = 10;
-        factory(App\User::class, $users)->create();
+        factory(User::class, $users)->create();
 
-        
+        $admin_id = Role::where('slug', 'admin')->first()->id;
+        $modem_id = Role::where('slug', 'modem')->first()->id;
+
+        // Create one admin
+        User::create([
+            'name' => 'admin',
+            'email' => 'admin@admin.com',
+            'password' => bcrypt('admin'),
+            'role_id' => $admin_id,
+            'remember_token' => str_random(10),
+        ]);
+
+        // Create one modem
+        User::create([
+            'name' => 'modem',
+            'email' => 'modem@modem.com',
+            'password' => bcrypt('modem'),
+            'role_id' => $modem_id,
+            'remember_token' => str_random(10),
+        ]);
     }
 }

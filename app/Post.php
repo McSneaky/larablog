@@ -26,16 +26,25 @@ class Post extends Model
     protected $dates = ['deleted_at'];
 
 
+    /**
+     * Get the user who wrote this post
+     */
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
+    /**
+     * Get the comments that belong to this post
+     */
     public function comments()
     {
         return $this->hasMany('App\Comment');
     }
 
+    /**
+     * Get the images that belong to this post
+     */
     public function images()
     {
         return $this->hasMany('App\Image');

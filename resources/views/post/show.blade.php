@@ -17,7 +17,7 @@
 							</a>
 						</div>
 					@endforeach
-					@if((Auth::id() == $post->user_id) || Auth::user()->canModerate())
+					@if((Auth::check() AND (Auth::id() == $post->user_id) || Auth::user()->canModerate()))
 						<div class="col-md-12">
 							<a href="{{ route('post_edit', $post->id) }}" class="btn btn-warning">@lang('app.edit')</a>
 							<a href="{{ url('/post/delete/' . $post->id) }}" class="btn btn-danger pull-right">@lang('app.delete')</a>
@@ -39,7 +39,7 @@
 				<div class="panel-body">
 					<form method="post" action="{{ url('/comment/' . $post->id) }}">
 						{{ csrf_field() }}
-						<input type="text" name="comment" required placeholder="@lang('app.comment')" class="form-control">
+						<input type="text" name="comment" maxlength="255" required placeholder="@lang('app.comment')" class="form-control">
 							@if ($errors->has('comment'))
 								<span class="help-block">
 									<strong>{{ $errors->first('comment') }}</strong>

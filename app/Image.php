@@ -15,6 +15,9 @@ class Image extends Model
     protected $guarded = ['deleted_at'];
 
 
+    /**
+     * Get the post who has this image.
+     */
     public function post()
     {
     	return $this->belongsTo('App\Post');

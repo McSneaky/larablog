@@ -28,14 +28,16 @@ class User extends Authenticatable
     ];
 
 
-    // Define relations
+    /**
+     * Get the posts made by this user
+     */
     public function posts()
     {
         return $this->hasMany('App\Post');
     }
 
     /**
-     * Get all of the posts for the country.
+     * Get the comments made by this user
      */
     public function comments()
     {
@@ -43,47 +45,65 @@ class User extends Authenticatable
     }
 
     /**
-     * Get all of the posts for the country.
+     * Get the images uploaded by this user
      */
     public function images()
     {
         return $this->hasManyThrough('App\Image', 'App\Post');
     }
 
-
+    /**
+     * Get the role where user belongs to
+     */
     public function role()
     {
         return $this->belongsTo('App\Role');
     }
 
 
+    /**
+     * Check if user is admin
+     * 
+     * @return boolean
+     */
     public function isAdmin()
     {
         $role = $this->role()->first();
         if ($role && $role->slug == 'admin') {
             return true;
         }
-
         return false;
     }
 
+    /**
+     * Check if user is moderator
+     * 
+     * @return boolean 
+     */
     public function isModem()
     {
         $role = $this->role()->first();
-        if ($role && $this->role()->first()->slug == 'modem') {
+        if ($role && $role->slug == 'modem') {
             return true;
         }
-
         return false;
     }
 
+    /**
+     * Check if is able to moderate posts
+     *
+     * @return boolean
+     */
     public function canModerate()
     {
-        // No point 2 queries
+        // Check if user has role
         if (!$this->role()->first()) {
             return false;
         }
 
+        // (Currently all roles are able to moderate posts, but it might change)
+
+        // If user has role, check if hes admin or modem
         if ($this->isAdmin() || $this->isModem()) {
             return true;
         }
@@ -91,12 +111,19 @@ class User extends Authenticatable
         return false;
     }
 
+    /**
+     * Generate greeting message for logged in user
+     *  Currently only for admins and modems
+     *  
+     * @return string
+     */
     public function greetingMessage()
     {
         // Check user role and give greeting message
         $message = null;
         $role = $this->role()->first();
         
+        // if user has no role, then generate no message
         if (!$role) { return; }
 
         if ($this->isAdmin()) {
@@ -105,6 +132,7 @@ class User extends Authenticatable
         } else if ($this->isModem()){
             $message = "modem";
         }
+        
         return $message;
     }
 }

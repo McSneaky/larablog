@@ -24,11 +24,17 @@ class Comment extends Model
      */
     protected $dates = ['deleted_at'];
 
+    /**
+     * Get the user who wrote this comment.
+     */
     public function user()
     {
         return $this->belongsTo('App\User');
     }
 
+    /**
+     * Get the post that owns this comment.
+     */
     public function post()
     {
         return $this->belongsTo('App\Post');

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Post;
 
 class PostsTableSeeder extends Seeder
 {
@@ -11,7 +12,8 @@ class PostsTableSeeder extends Seeder
      */
     public function run()
     {
+        // Generate $posts nr of random posts
     	$posts = 50;
-        factory(App\Post::class, $posts)->create();
+        factory(Post::class, $posts)->create();
     }
 }

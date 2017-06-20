@@ -29,7 +29,6 @@ return [
         'string'  => 'Parool peab olema vähemalt :min tähemärki.',
         'array'   => 'The :attribute must have at least :min items.',
     ],
-    'required'             => 'Väli on kohustuslik.',
     'unique'               => 'E-mail on jüba võetud',
-
+    'required'             => 'Väli on kohustuslik.',
 ];

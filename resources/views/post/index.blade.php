@@ -2,7 +2,6 @@
 
 @section('content')
 
-
 <div class="container">
     <div class="text-center">
         <h2>@lang('app.all_posts')</h2>
