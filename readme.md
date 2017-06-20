@@ -51,6 +51,7 @@ After seeding users table administrator and moderator users are created. <br />
 English and estonian languages are supported www.larablog.dev and www.larablog.dev/et (no prefix for english and */et* prefix for estonian)
 
 ## Notes
+- Document root should be in larablog/public
 - AppServiceProvider -> Schema default string length is limited to 191 to support older databases. <br />
 - If images uploaded images are unaccessable then run: ``php artisan storage:link`` to create symbolic link from public/storage to storage/app/public 
 - No copyright or anything attached, if you find this code you are free to use it wherever you want and modify as much as you like =)
