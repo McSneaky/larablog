@@ -12,12 +12,12 @@ class RolesTableSeeder extends Seeder
      */
     public function run()
     {
-        Role::create([
+        Role::firstOrCreate([
 			'slug' => 'modem',
 			'name' => 'Moderator',
 		]);
 
-        Role::create([
+        Role::firstOrCreate([
 			'slug' => 'admin',
 			'name' => 'Administrator'
     	]);

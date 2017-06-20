@@ -21,7 +21,7 @@ class UsersTableSeeder extends Seeder
         $modem_id = Role::where('slug', 'modem')->first()->id;
 
         // Create one admin
-        User::create([
+        User::firstOrCreate([
             'name' => 'admin',
             'email' => 'admin@admin.com',
             'password' => bcrypt('admin'),
@@ -30,7 +30,7 @@ class UsersTableSeeder extends Seeder
         ]);
 
         // Create one modem
-        User::create([
+        User::firstOrCreate([
             'name' => 'modem',
             'email' => 'modem@modem.com',
             'password' => bcrypt('modem'),
