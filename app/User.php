@@ -49,4 +49,39 @@ class User extends Authenticatable
     {
         return $this->hasManyThrough('App\Image', 'App\Post');
     }
+
+
+    public function role()
+    {
+        return $this->belongsTo('App\Role')->first();
+    }
+
+    public function canModerate()
+    {
+        if (!$this->role()) { return false; }
+
+        $slug = $this->role()->slug;
+        if ($slug == 'admin' || $slug == 'modem') {
+            return true;
+        }
+        
+        return false;
+    }
+
+
+    public function greetingMessage()
+    {
+        // Check user role and give greeting message
+        $message = null;
+        $role = $this->role();
+        
+        if (!$role) { return; }
+
+        if ($role->slug == 'admin') {
+            $message = "admin";
+        } else if ($role->slug == 'modem'){
+            $message = "modem";
+        }
+        return $message;
+    }
 }

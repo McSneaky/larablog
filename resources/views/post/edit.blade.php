@@ -11,7 +11,7 @@
                     <form method="post">
                         {{ csrf_field() }}
                         <div>@lang('app.title')</div>
-                        <input type="text" name="title" value="{{ $post->title }}" placeholder="@lang('app.title')" class="form-control">
+                        <input type="text" name="title" value="{{ $post->title }}" placeholder="@lang('app.title')" class="form-control" required>
                         @if ($errors->has('title'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('title') }}</strong>
@@ -20,7 +20,7 @@
 
                         <br />
                         <div>@lang('app.body')</div>
-                        <textarea name="body" placeholder="@lang('app.post_body')" class="form-control">{{ $post->body }}</textarea>
+                        <textarea name="body" placeholder="@lang('app.post_body')" class="form-control" maxlength="4000">{{ $post->body }}</textarea>
                         @if ($errors->has('body'))
                             <span class="help-block">
                                 <strong>{{ $errors->first('body') }}</strong>

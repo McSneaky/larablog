@@ -25,7 +25,7 @@
 
 						<br />
 						<div>@lang('app.body')</div>
-						<textarea name="body" placeholder="@lang('app.post_body')" class="form-control"></textarea>
+						<textarea name="body" placeholder="@lang('app.post_body')" class="form-control" maxlength="4000"></textarea>
 						@if ($errors->has('body'))
 							<span class="help-block">
 								<strong>{{ $errors->first('body') }}</strong>

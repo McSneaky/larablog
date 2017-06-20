@@ -39,11 +39,11 @@ Route::group(array('prefix' => $locale), function()
 	
 	Route::post('/post/edit/{id}', 'PostsController@update');
 	Route::post('/post/create', 'PostsController@store');
-	Route::get('/post/delete/{id}', 'PostsController@destroy');
+	Route::get('/post/delete/{id}', 'PostsController@destroy')->name('post_delete');
 
 	// Comment routes
 	Route::post('/comment/{id}', 'CommentsController@store');
 
 	// Image routes
-	Route::get('/image/delete/{id}', 'PostsController@removeImage');
+	Route::get('/image/delete/{id}', 'PostsController@removeImage')->name('img_delete');
 });

@@ -17,9 +17,9 @@
 							</a>
 						</div>
 					@endforeach
-					@if(Auth::id() == $post->user_id)
+					@if((Auth::id() == $post->user_id) || Auth::user()->canModerate())
 						<div class="col-md-12">
-							<a href="{{ url('/post/edit/' . $post->id) }}" class="btn btn-warning">@lang('app.edit')</a>
+							<a href="{{ route('post_edit', $post->id) }}" class="btn btn-warning">@lang('app.edit')</a>
 							<a href="{{ url('/post/delete/' . $post->id) }}" class="btn btn-danger pull-right">@lang('app.delete')</a>
 						</div>
 					@endif

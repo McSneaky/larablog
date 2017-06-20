@@ -78,7 +78,7 @@ class PostsController extends Controller
 			}
 		}
 
-		return redirect('post/' . $post->id);
+		return redirect()->route('post_show', $post->id);
 	}
 
 	/**
@@ -91,7 +91,7 @@ class PostsController extends Controller
 	{
 		$post = Post::find($id);
 		if (!$post) { 
-			return redirect('/posts')->with('message', 'no_post');
+			return redirect()->route('posts')->with('message', 'no_post');
 		}
 
 		$post->comments = $post->comments()->with('User')->get()->reverse();
@@ -108,7 +108,7 @@ class PostsController extends Controller
 	 */
 	public function edit($id)
 	{
-		$post = Auth::user()->posts()->find($id);
+		$post = Post::find($id);
 
 		return view('post/edit', compact('post'));
 	}
@@ -127,14 +127,14 @@ class PostsController extends Controller
 			'body' => 'max:4000',
 		]);
 
-		$post = Auth::user()->posts()->find($id);
+		$post = Post::find($id);
 		if ($post) {
 			$post->title = $request->title;
 			$post->body = $request->body;
 			$post->save();
 		}
 
-		return redirect('post/' . $id);
+		return redirect()->route('post_show', $id);
 	}
 
 	/**
@@ -145,9 +145,9 @@ class PostsController extends Controller
 	 */
 	public function destroy($id)
 	{
-		Auth::user()->posts()->find($id)->delete();
+		Post::find($id)->delete();
 
-		return redirect('posts');
+		return redirect()->route('posts');
 	}
 
 	public function removeImage($id)
@@ -158,7 +158,7 @@ class PostsController extends Controller
 
 		// Check if picture owner is user
 		$post = $image->post;
-		if ($post->user_id == Auth::id()) {
+		if ($post->user_id == Auth::id() || Auth::user()->canModerate()) {
 			Storage::delete($image->path);
 			$image->delete();
 		}

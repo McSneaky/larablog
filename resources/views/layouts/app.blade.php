@@ -55,6 +55,9 @@
 
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
+                                        <a href="{{ route('home') }}">@lang('app.dashboard')</a>
+                                    </li>
+                                    <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -74,7 +77,12 @@
 
         @if(session()->has('message'))
             <div class="alert alert-warning text-center">
-                @lang('error.' . session()->get('message'))
+                @lang('message.' . session()->get('message'))
+            </div>
+        @endif
+        @if(isset($message))
+            <div class="alert alert-warning text-center">
+                @lang('message.' . $message)
             </div>
         @endif
         @yield('content')

@@ -10,5 +10,7 @@
     */
    
 return [
-	'no_post' => "Postitust ei eksisteeri",
+	'no_post' => "Post does not exist",
+	'admin' => "You have the power of admin!",
+	'modem' => "Hello moderator!",
 ];
