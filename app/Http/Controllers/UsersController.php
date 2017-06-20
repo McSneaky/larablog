@@ -20,7 +20,7 @@ class UsersController extends Controller
     	$this->validate($request, [
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255',
-            'role' => 'string',
+            'role' => 'sometimes|nullable|exists:roles,id',
 		]);
 
         if (!Auth::user()->isAdmin()) {
@@ -31,7 +31,7 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->email = $request->email;
 
-        if (!$request->role || $request->role == 'null') {
+        if (!$request->role || $request->role == 0) {
         	$user->role_id = null;
         } else {
         	$user->role_id = $request->role;

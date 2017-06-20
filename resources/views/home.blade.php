@@ -31,7 +31,7 @@
 										</div>
 										<div class="col-xs-2">
 											<select name="role" class="form-control">
-											<option>-</option>
+											<option value="">-</option>
 												@foreach($roles as $role)
 													<option value="{{ $role->id }}"
 													@if($user->role && $user->role->id == $role->id)
