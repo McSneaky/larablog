@@ -20,7 +20,6 @@ if (in_array($locale, Config::get('app.available_locales'))) {
 }
 
 
-
 Auth::routes();
 
 Route::group(array('prefix' => $locale), function()
@@ -46,4 +45,8 @@ Route::group(array('prefix' => $locale), function()
 
 	// Image routes
 	Route::get('/image/delete/{id}', 'PostsController@removeImage')->name('img_delete');
+
+	// User routes
+	Route::post('/user/edit/{id}', 'UsersController@update')->name('user_edit');
+	Route::get('/user/delete/{id}', 'UsersController@destroy')->name('user_delete');
 });

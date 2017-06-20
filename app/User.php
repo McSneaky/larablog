@@ -53,33 +53,56 @@ class User extends Authenticatable
 
     public function role()
     {
-        return $this->belongsTo('App\Role')->first();
+        return $this->belongsTo('App\Role');
+    }
+
+
+    public function isAdmin()
+    {
+        $role = $this->role()->first();
+        if ($role && $role->slug == 'admin') {
+            return true;
+        }
+
+        return false;
+    }
+
+    public function isModem()
+    {
+        $role = $this->role()->first();
+        if ($role && $this->role()->first()->slug == 'modem') {
+            return true;
+        }
+
+        return false;
     }
 
     public function canModerate()
     {
-        if (!$this->role()) { return false; }
+        // No point 2 queries
+        if (!$this->role()->first()) {
+            return false;
+        }
 
-        $slug = $this->role()->slug;
-        if ($slug == 'admin' || $slug == 'modem') {
+        if ($this->isAdmin() || $this->isModem()) {
             return true;
         }
-        
+
         return false;
     }
-
 
     public function greetingMessage()
     {
         // Check user role and give greeting message
         $message = null;
-        $role = $this->role();
+        $role = $this->role()->first();
         
         if (!$role) { return; }
 
-        if ($role->slug == 'admin') {
+        if ($this->isAdmin()) {
             $message = "admin";
-        } else if ($role->slug == 'modem'){
+
+        } else if ($this->isModem()){
             $message = "modem";
         }
         return $message;

@@ -28,10 +28,16 @@ return [
 	'comments' => "Comments",
 
 	'edit' => "Edit",
+	'save' => "Save",
 	'delete' => "Delete",
 
 	'dashboard' => "Dashboard",
 	'login_message' => "You are logged in",
 
 	'anon' => "Anonymous",
+
+	'manage_users' => "Manage users",
+	'role' => "Role",
+	'edit_delete' => "Edit / Delete",
+
 ];

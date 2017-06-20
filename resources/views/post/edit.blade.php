@@ -35,7 +35,7 @@
                         @endforeach
 
                         <div class="col-sm-12">
-                            <input type="submit" value="@lang('app.do_post')" class="btn btn-primary">
+                            <input type="submit" value="@lang('app.save')" class="btn btn-primary">
                             <a href="{{ url('/post/delete/' . $post->id) }}" class="btn btn-danger pull-right">@lang('app.delete')</a>
                         </div>
                     </form>

@@ -28,11 +28,17 @@ return [
 	'comments' => "Kommentaarid",
 
 	'edit' => "Muuda",
+	'save' => "Salvesta",
 	'delete' => "Kustuta",
 
 	'dashboard' => "Töölaud",
 	'login_message' => "Oled sisse logitud",
 
 	'anon' => "Anonüümne",
+
+	'manage_users' => "Halda kasutajaid",
+	'role' => "Roll",
+	'edit_delete' => "Muuda / Kustuta",
+
 
 ];
